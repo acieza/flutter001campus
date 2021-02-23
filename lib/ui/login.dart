@@ -23,12 +23,17 @@ class _LoginState extends State<Login> {
   }
 
   Widget build(BuildContext context) {
-    final logo = Center(
-      child: Icon(
-        Icons.account_circle_rounded,
-        size: 150,
-        color: Colors.blue,
+    final logo = Container(
+      width: double.infinity,
+      height: 75,
+      decoration: BoxDecoration(
+        border: 
       ),
+      // child: Icon(
+      //   Icons.account_circle_rounded,
+      //   size: 150,
+      //   color: Colors.blue,
+      // ),
     );
 
     final msg = BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
