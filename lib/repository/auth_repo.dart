@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class AuthRepository {
   login(String email, String password) async {
-    var res = await http.post("http://192.168.1.130:3000/login",
+    var res = await http.post("http://192.168.1.45:3000/login",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8'
         },

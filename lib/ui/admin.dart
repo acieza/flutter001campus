@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_campus/bloc/auth_bloc.dart';
 
+import 'main_drawer.dart';
+
 // class AddContact extends StatelessWidget {
 //   const AddContact({Key key}) : super(key: key);
 
@@ -34,6 +36,10 @@ class _Admin extends State<Admin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Titulo'),
+      ),
+      drawer: MainDrawner(),
       backgroundColor: Colors.white60,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -42,7 +48,7 @@ class _Admin extends State<Admin> {
           } else if (state is AdminLoginSuccessState) {
             return Navigator.pushNamed(context, '/admin');
           } else if (state is ControlPageState) {
-            return Navigator.pushNamed(context, '/');
+            return Navigator.pushNamed(context, '/login');
           }
         },
         child: Container(

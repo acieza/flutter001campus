@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_campus/bloc/auth_bloc.dart';
@@ -23,19 +24,6 @@ class _LoginState extends State<Login> {
   }
 
   Widget build(BuildContext context) {
-    final logo = Container(
-      width: double.infinity,
-      height: 75,
-      decoration: BoxDecoration(
-        border: 
-      ),
-      // child: Icon(
-      //   Icons.account_circle_rounded,
-      //   size: 150,
-      //   color: Colors.blue,
-      // ),
-    );
-
     final msg = BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       if (state is LoginErrorState) {
         return Text(state.message);
@@ -49,7 +37,7 @@ class _LoginState extends State<Login> {
     });
 
     final username = TextFormField(
-      style: TextStyle(color: Colors.white60),
+      style: TextStyle(color: Colors.grey),
       controller: email,
       validator: (value) {
         if (value.isEmpty) {
@@ -60,10 +48,10 @@ class _LoginState extends State<Login> {
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.email, color: Colors.black45),
+        prefixIcon: Icon(Icons.email, color: Colors.blue),
         // filled: true,
         // fillColor: Colors.blue,
-        hintStyle: TextStyle(color: Colors.white70),
+        hintStyle: TextStyle(color: Colors.grey),
         hintText: 'Email',
 
         // contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -74,7 +62,7 @@ class _LoginState extends State<Login> {
     );
 
     final pass = TextFormField(
-      style: TextStyle(color: Colors.white60),
+      style: TextStyle(color: Colors.black),
       controller: password,
       validator: (value) {
         if (value.isEmpty) {
@@ -86,10 +74,10 @@ class _LoginState extends State<Login> {
       obscureText: true,
       autofocus: false,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.lock, color: Colors.black45),
+        prefixIcon: Icon(Icons.lock, color: Colors.blue),
         // filled: true,
         // fillColor: Colors.blue,
-        hintStyle: TextStyle(color: Colors.white70),
+        hintStyle: TextStyle(color: Colors.grey),
         hintText: 'Password',
         // contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
         // border: OutlineInputBorder(
@@ -122,44 +110,84 @@ class _LoginState extends State<Login> {
 
     //*** scaffoll
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         body: BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is UserLoginSuccessState) {
-          return Navigator.pushNamed(context, '/user');
-        } else if (state is AdminLoginSuccessState) {
-          return Navigator.pushNamed(context, '/admin');
-        }
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-              Colors.blue[500],
-              Colors.white60,
-            ])),
-        child: Center(
-          child: Form(
-            key: _addFormKey,
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(left: 24.0, right: 24.0),
-              children: <Widget>[
-                logo,
-                SizedBox(height: 20.0),
-                msg,
-                SizedBox(height: 48.0),
-                username,
-                SizedBox(height: 20.0),
-                pass,
-                SizedBox(height: 48.0),
-                loginbutton,
+          listener: (context, state) {
+            if (state is UserLoginSuccessState) {
+              return Navigator.pushNamed(context, '/user');
+            } else if (state is AdminLoginSuccessState) {
+              return Navigator.pushNamed(context, '/admin');
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.only(bottom: 30),
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.blue[500],
+                          Colors.white60,
+                        ]),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(200),
+                        bottomRight: Radius.circular(200)),
+                  ),
+                  child: Center(
+                    child: Image.asset("assets/images/logo.png",
+                        height: 80, width: 80, fit: BoxFit.fill),
+                  ),
+                ),
+                Expanded(
+                    child: Container(
+                  margin: EdgeInsets.only(left: 20, right: 20, top: 30),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Form(
+                          key: _addFormKey,
+                          child: ListView(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+                            children: <Widget>[
+                              SizedBox(height: 20.0),
+                              msg,
+                              SizedBox(height: 48.0),
+                              username,
+                              SizedBox(height: 20.0),
+                              pass,
+                              SizedBox(height: 48.0),
+                              loginbutton,
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: "Aún no tienes Cuenta ? ",
+                          style: TextStyle(color: Colors.black)),
+                      TextSpan(
+                          text: "Regístrate",
+                          style: TextStyle(color: Colors.blue),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.pushNamed(context, '/regipage');
+                            }),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

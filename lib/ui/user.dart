@@ -48,7 +48,7 @@ class _UserState extends State<User> {
           } else if (state is AdminLoginSuccessState) {
             return Navigator.pushNamed(context, '/admin');
           } else if (state is ControlPageState) {
-            return Navigator.pushNamed(context, '/');
+            return Navigator.pushNamed(context, '/login');
           }
         },
         child: Container(
