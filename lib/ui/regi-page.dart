@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_campus/repository/auth_repo.dart';
 // import 'package:flutter_campus/bloc/auth_bloc.dart';
 
 class RegiPage extends StatefulWidget {
@@ -7,6 +8,7 @@ class RegiPage extends StatefulWidget {
 }
 
 class _RegiPageState extends State<RegiPage> {
+  AuthRepository api = new AuthRepository();
   TextEditingController email = TextEditingController();
   TextEditingController nombre = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -104,9 +106,8 @@ class _RegiPageState extends State<RegiPage> {
         onPressed: () {
           if (_addFormKey.currentState.validate()) {
             _addFormKey.currentState.save();
-            // authBloc.add(
-            // LoginButtonPress(email: email.text, password: password.text),
-            // );
+            api.registro(email.text, password.text, nombre.text);
+            Navigator.pushNamed(context, "/login");
           }
         },
         padding: EdgeInsets.all(10),
@@ -118,13 +119,12 @@ class _RegiPageState extends State<RegiPage> {
       ),
     );
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       body: Container(
         padding: EdgeInsets.only(bottom: 30),
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.4,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
@@ -144,31 +144,33 @@ class _RegiPageState extends State<RegiPage> {
             ),
             Expanded(
                 child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 30),
-              child: Column(
-                children: [
-                  Center(
-                    child: Form(
-                      key: _addFormKey,
-                      child: ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.only(left: 24.0, right: 24.0),
-                        children: <Widget>[
-                          SizedBox(height: 20.0),
-                          name,
-                          SizedBox(height: 20.0),
-                          username,
-                          SizedBox(height: 20.0),
-                          pass,
-                          SizedBox(height: 48.0),
-                          loginbutton,
+                    margin: EdgeInsets.only(left: 20, right: 20, top: 30),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Form(
+                              key: _addFormKey,
+                              child: ListView(
+                                shrinkWrap: true,
+                                padding:
+                                    EdgeInsets.only(left: 24.0, right: 24.0),
+                                children: <Widget>[
+                                  SizedBox(height: 20.0),
+                                  name,
+                                  SizedBox(height: 20.0),
+                                  username,
+                                  SizedBox(height: 20.0),
+                                  pass,
+                                  SizedBox(height: 48.0),
+                                  loginbutton,
+                                ],
+                              ),
+                            ),
+                          )
                         ],
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )),
+                    ))),
           ],
         ),
       ),

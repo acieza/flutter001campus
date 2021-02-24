@@ -110,84 +110,88 @@ class _LoginState extends State<Login> {
 
     //*** scaffoll
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
         body: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is UserLoginSuccessState) {
-              return Navigator.pushNamed(context, '/user');
-            } else if (state is AdminLoginSuccessState) {
-              return Navigator.pushNamed(context, '/admin');
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.only(bottom: 30),
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                          Colors.blue[500],
-                          Colors.white60,
-                        ]),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(200),
-                        bottomRight: Radius.circular(200)),
-                  ),
-                  child: Center(
-                    child: Image.asset("assets/images/logo.png",
-                        height: 80, width: 80, fit: BoxFit.fill),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, top: 30),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Form(
-                          key: _addFormKey,
-                          child: ListView(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-                            children: <Widget>[
-                              SizedBox(height: 20.0),
-                              msg,
-                              SizedBox(height: 48.0),
-                              username,
-                              SizedBox(height: 20.0),
-                              pass,
-                              SizedBox(height: 48.0),
-                              loginbutton,
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                          text: "Aún no tienes Cuenta ? ",
-                          style: TextStyle(color: Colors.black)),
-                      TextSpan(
-                          text: "Regístrate",
-                          style: TextStyle(color: Colors.blue),
-                          recognizer: new TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.pushNamed(context, '/regipage');
-                            }),
-                    ],
-                  ),
-                )
-              ],
+      listener: (context, state) {
+        if (state is UserLoginSuccessState) {
+          return Navigator.pushNamed(context, '/user');
+        } else if (state is AdminLoginSuccessState) {
+          return Navigator.pushNamed(context, '/admin');
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.only(bottom: 30),
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.blue[500],
+                      Colors.white60,
+                    ]),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(200),
+                    bottomRight: Radius.circular(200)),
+              ),
+              child: Center(
+                child: Image.asset("assets/images/logo.png",
+                    height: 80, width: 80, fit: BoxFit.fill),
+              ),
             ),
-          ),
-        ));
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.only(left: 20, right: 20, top: 30),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Form(
+                              key: _addFormKey,
+                              child: ListView(
+                                shrinkWrap: true,
+                                padding:
+                                    EdgeInsets.only(left: 24.0, right: 24.0),
+                                children: <Widget>[
+                                  SizedBox(height: 20.0),
+                                  msg,
+                                  SizedBox(height: 48.0),
+                                  username,
+                                  SizedBox(height: 20.0),
+                                  pass,
+                                  SizedBox(height: 48.0),
+                                  loginbutton,
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text: "Aún no tienes Cuenta ? ",
+                                        style: TextStyle(color: Colors.black)),
+                                    TextSpan(
+                                        text: "Regístrate",
+                                        style: TextStyle(color: Colors.blue),
+                                        recognizer: new TapGestureRecognizer()
+                                          ..onTap = () {
+                                            Navigator.pushNamed(
+                                                context, '/regipage');
+                                          }),
+                                  ],
+                                ),
+                              ))
+                        ],
+                      ),
+                    ))),
+          ],
+        ),
+      ),
+    ));
   }
 }

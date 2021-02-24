@@ -38,7 +38,22 @@ class _UserState extends State<User> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Titulo'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          ),
+        ],
+        title: Image.asset(
+          'assets/images/logo.png',
+          height: 40,
+          width: 40,
+        ),
       ),
       drawer: MainDrawner(),
       body: BlocListener<AuthBloc, AuthState>(

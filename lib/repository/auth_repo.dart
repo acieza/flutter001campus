@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class AuthRepository {
   login(String email, String password) async {
-    var res = await http.post("http://192.168.1.45:3000/login",
+    var res = await http.post("http://192.168.1.130:3000/login",
         headers: <String, String>{
           'Content-Type': 'application/json; charset=utf-8'
         },
@@ -12,6 +12,28 @@ class AuthRepository {
 
     if (data['ok'] == true) {
       print('bien');
+      print(data);
+      return data;
+    } else {
+      print('mal');
+      print(data);
+      return "tenemos un fallo en la Api";
+    }
+  }
+
+  registro(String email, String password, String nombre) async {
+    Map datos = {"nombre": nombre, "email": email, "password": password};
+
+    final http.Response res = await http.post(
+        "http://192.168.1.130:3000/usuarios",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: jsonEncode(datos));
+    final data = json.decode(res.body);
+
+    if (data['ok'] == true) {
+      print('Usuario Guardado con éxito');
       print(data);
       return data;
     } else {
