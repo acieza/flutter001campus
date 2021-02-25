@@ -94,6 +94,7 @@ class _MainDrawnerState extends State<MainDrawner> {
             ),
             onTap: () {
               vueltaBloc.add(EliminarToken());
+              return Navigator.pushNamed(context, "/login");
             },
           )
         ],

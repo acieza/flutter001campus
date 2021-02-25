@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_campus/bloc/auth_bloc.dart';
+import 'package:flutter_campus/models/curso.dart';
+import 'package:flutter_campus/repository/auth_repo.dart';
 
+import 'cursoslist.dart';
 import 'main_drawer.dart';
 
 // class Contact extends StatelessWidget {
@@ -25,6 +28,8 @@ class User extends StatefulWidget {
 }
 
 class _UserState extends State<User> {
+  final AuthRepository api = AuthRepository();
+  List<Curso> cursosList;
   AuthBloc vueltaBloc;
 
   @override
@@ -37,46 +42,54 @@ class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.more_vert,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // do something
-            },
-          ),
-        ],
-        title: Image.asset(
-          'assets/images/logo.png',
-          height: 40,
-          width: 40,
-        ),
-      ),
-      drawer: MainDrawner(),
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is UserLoginSuccessState) {
-            return Navigator.pushNamed(context, '/user');
-          } else if (state is AdminLoginSuccessState) {
-            return Navigator.pushNamed(context, '/admin');
-          } else if (state is ControlPageState) {
-            return Navigator.pushNamed(context, '/login');
-          }
-        },
-        child: Container(
-          child: Center(
-            child: RaisedButton(
-              child: Text('Cerrar sesión'),
+        appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ),
               onPressed: () {
-                vueltaBloc.add(EliminarToken());
+                // do something
               },
             ),
+          ],
+          title: Image.asset(
+            'assets/images/logo.png',
+            fit: BoxFit.cover,
+            height: 40,
+            width: 40,
           ),
         ),
-      ),
-    );
+        drawer: MainDrawner(),
+        body:
+            // BlocListener<AuthBloc, AuthState>(
+            //   listener: (context, state) {
+            //     if (state is UserLoginSuccessState) {
+            //       return Navigator.pushNamed(context, '/user');
+            //     } else if (state is AdminLoginSuccessState) {
+            //       return Navigator.pushNamed(context, '/admin');
+            //     } else if (state is ControlPageState) {
+            //       return Navigator.pushNamed(context, '/login');
+            //     }
+            //   },
+
+            FutureBuilder(
+          future: loadList(),
+          builder: (context, snapshot) {
+            return cursosList.length > 0
+                ? CursosList(cursos: cursosList)
+                : Center(child: Text("No existen Datos, Añade uno"));
+          },
+        ));
+  }
+
+  Future loadList() {
+    Future<List<Curso>> futurecase = api.getCursos();
+    futurecase.then((cursosList) {
+      setState(() {
+        this.cursosList = cursosList;
+      });
+    });
   }
 }

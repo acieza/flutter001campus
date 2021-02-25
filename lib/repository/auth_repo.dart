@@ -1,3 +1,4 @@
+import 'package:flutter_campus/models/curso.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -42,4 +43,20 @@ class AuthRepository {
       return "tenemos un fallo en la Api";
     }
   }
+
+  Future<List<Curso>> getCursos() async {
+    http.Response res = await http.get("http://192.168.1.130:3000/cursos");
+
+    if (res.statusCode == 200) {
+      List<dynamic> body = jsonDecode(res.body);
+      List<Curso> cursos =
+          body.map((dynamic item) => Curso.fromJson(item)).toList();
+      return cursos;
+    } else {
+      throw "Error en la lista de Casos";
+    }
+  }
+  // getCursos() async {
+  //   var response = await http.get("http://192.168.1.130:3000/usuarios");
+  // }
 }

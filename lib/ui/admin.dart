@@ -56,24 +56,24 @@ class _Admin extends State<Admin> {
       ),
       drawer: MainDrawner(),
       backgroundColor: Colors.white60,
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is UserLoginSuccessState) {
-            return Navigator.pushNamed(context, '/user');
-          } else if (state is AdminLoginSuccessState) {
-            return Navigator.pushNamed(context, '/admin');
-          } else if (state is ControlPageState) {
-            return Navigator.pushNamed(context, '/login');
-          }
-        },
-        child: Container(
-          child: Center(
-            child: RaisedButton(
-              child: Text('Cerrar sesión'),
-              onPressed: () {
-                vueltaBloc.add(EliminarToken());
-              },
-            ),
+      body:
+          // BlocListener<AuthBloc, AuthState>(
+          //   listener: (context, state) {
+          //     if (state is UserLoginSuccessState) {
+          //       return Navigator.pushNamed(context, '/user');
+          //     } else if (state is AdminLoginSuccessState) {
+          //       return Navigator.pushNamed(context, '/admin');
+          //     } else if (state is ControlPageState) {
+          //       return Navigator.pushNamed(context, '/login');
+          //     }
+          //   },
+          Container(
+        child: Center(
+          child: RaisedButton(
+            child: Text('Cerrar sesión'),
+            onPressed: () {
+              vueltaBloc.add(EliminarToken());
+            },
           ),
         ),
       ),
