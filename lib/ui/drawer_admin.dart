@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_campus/bloc/auth_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawnerAdmin extends StatefulWidget {
   const DrawnerAdmin({Key key}) : super(key: key);
@@ -16,7 +17,7 @@ class _DrawnerAdminState extends State<DrawnerAdmin> {
   @override
   void initState() {
     vueltaBloc = BlocProvider.of<AuthBloc>(context);
-
+    var pref = SharedPreferences.getInstance();
     super.initState();
   }
 
@@ -49,7 +50,8 @@ class _DrawnerAdminState extends State<DrawnerAdmin> {
                     ),
                   ),
                   Text(
-                    'Alejandro Cieza',
+                    //      vueltaBloc.add(NombreUserToken();),
+                    "Alejandro",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,
@@ -66,7 +68,7 @@ class _DrawnerAdminState extends State<DrawnerAdmin> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person),
+            leading: Icon(Icons.account_circle_sharp),
             title: Text(
               'Profile',
               style: TextStyle(
@@ -75,9 +77,9 @@ class _DrawnerAdminState extends State<DrawnerAdmin> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.school),
             title: Text(
-              'Alumnos',
+              'Cursos',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -87,14 +89,28 @@ class _DrawnerAdminState extends State<DrawnerAdmin> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.school_outlined),
+            title: Text(
+              'Alumnos',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, '/alum');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.school_sharp),
             title: Text(
               'Profesores',
               style: TextStyle(
                 fontSize: 18,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/profe');
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),

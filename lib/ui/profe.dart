@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_campus/bloc/auth_bloc.dart';
-////import 'package:flutter_campus/models/alumnos.dart';
-import 'package:flutter_campus/models/curso.dart';
+//import 'package:flutter_campus/models/alumnos.dart';
+import 'package:flutter_campus/models/profesores.dart';
 import 'package:flutter_campus/repository/auth_repo.dart';
 //import 'package:flutter_campus/ui/alumlist.dart';
+import 'package:flutter_campus/ui/profelist.dart';
 
-import 'cursoslist.dart';
 import 'drawer_admin.dart';
 //import 'main_drawer.dart';
 
@@ -22,17 +22,17 @@ import 'drawer_admin.dart';
 //     );
 //   }
 // }
-class Admin extends StatefulWidget {
-  Admin({Key key}) : super(key: key);
+class Profe extends StatefulWidget {
+  Profe({Key key}) : super(key: key);
 
   @override
-  _Admin createState() => _Admin();
+  _Profe createState() => _Profe();
 }
 
-class _Admin extends State<Admin> {
+class _Profe extends State<Profe> {
   final AuthRepository api = AuthRepository();
-  List<Curso> cursosList;
-  //AuthBloc vueltaBloc;
+  List<Profesores> profeList;
+  // AuthBloc vueltaBloc;
 
   @override
   void initState() {
@@ -43,8 +43,8 @@ class _Admin extends State<Admin> {
 
   @override
   Widget build(BuildContext context) {
-    if (cursosList == null) {
-      cursosList = List<Curso>();
+    if (profeList == null) {
+      profeList = List<Profesores>();
     }
     return Scaffold(
         appBar: AppBar(
@@ -66,7 +66,7 @@ class _Admin extends State<Admin> {
           ),
         ),
         drawer: DrawnerAdmin(),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white60,
         body:
             // BlocListener<AuthBloc, AuthState>(
             //   listener: (context, state) {
@@ -82,18 +82,18 @@ class _Admin extends State<Admin> {
             FutureBuilder(
           future: loadList(),
           builder: (context, snapshot) {
-            return cursosList.length > 0
-                ? CursosList(cursos: cursosList)
+            return profeList.length > 0
+                ? ProfeList(profe: profeList)
                 : Center(child: Text("No existen Datos, Añade uno"));
           },
         ));
   }
 
   Future loadList() {
-    Future<List<Curso>> futurecase = api.getCursos();
-    futurecase.then((cursosList) {
+    Future<List<Profesores>> futureprof = api.getProf();
+    futureprof.then((profeList) {
       setState(() {
-        this.cursosList = cursosList;
+        this.profeList = profeList;
       });
     });
     return loadList();

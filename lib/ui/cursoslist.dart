@@ -32,7 +32,7 @@ class CursosList extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.network(
-                                'http://192.168.1.45:3000/imgCurso/${cursos[index].imagen}',
+                                'http://192.168.1.130:3000/imgCurso/${cursos[index].imagen}',
                                 fit: BoxFit.cover,
                               ),
                             )

@@ -22,4 +22,9 @@ class LoginErrorState extends AuthState {
   LoginErrorState({this.message});
 }
 
+class NombreUserState extends AuthState {
+  final String message;
+  NombreUserState({this.message});
+}
+
 class ControlPageState extends AuthState {}

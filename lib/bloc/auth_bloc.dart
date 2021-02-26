@@ -26,11 +26,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (data['usuarioLogin']['role'] == "user") {
         pref.setString('token', data['token']);
         pref.setString('role', data['usuarioLogin']['role']);
+        pref.setString('_id', data['usuarioLogin']['_id']);
+        pref.setString('nombre', data['usuarioLogin']['nombre']);
+        pref.setString('email', data['usuarioLogin']['email']);
+        pref.setString('img', data['usuarioLogin']['img']);
         yield UserLoginSuccessState();
       } else if (data['usuarioLogin']['role'] == "admin" ||
           data['usuarioLogin']['role'] == "profesor") {
         pref.setString('token', data['token']);
         pref.setString('role', data['usuarioLogin']['role']);
+        pref.setString('_id', data['usuarioLogin']['_id']);
+        pref.setString('nombre', data['usuarioLogin']['nombre']);
+        pref.setString('email', data['usuarioLogin']['email']);
+        pref.setString('img', data['usuarioLogin']['img']);
         yield AdminLoginSuccessState();
       } else {
         yield LoginErrorState(message: data['msg'][0]);
@@ -49,6 +57,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is EliminarToken) {
       pref.clear();
       yield ControlPageState();
+    } else if (event is NombreUserToken) {
+      yield NombreUserState(message: pref.getString('nombre'));
     }
   }
 }

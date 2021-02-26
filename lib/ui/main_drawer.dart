@@ -49,7 +49,7 @@ class _MainDrawnerState extends State<MainDrawner> {
                     ),
                   ),
                   Text(
-                    'Alejandro Cieza',
+                    "Alejandro",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,

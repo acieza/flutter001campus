@@ -24,13 +24,19 @@ class AlumList extends StatelessWidget {
             // },
             child: ListTile(
                 leading: CircleAvatar(
-                  radius: 30,
-                  child: ClipOval(
-                    child: Image.network(
-                      'http://192.168.1.45:3000/img/${alum[index].img}',
-                    ),
-                  ),
-                ),
+                    radius: 30,
+                    child: ClipOval(
+                      child: //((){
+                          //if (alum[index].img){
+                          alum[index].img == null || alum[index].img == ""
+                              ? Image.asset(
+                                  'assets/images/user.png',
+                                )
+                              : Image.network(
+                                  'http://192.168.1.130:3000/img/${alum[index].img}',
+                                ),
+                      //  }}()),
+                    )),
                 title: Text(alum[index].nombre),
                 subtitle: Text(alum[index].email),
                 trailing: Icon(Icons.keyboard_arrow_right)),

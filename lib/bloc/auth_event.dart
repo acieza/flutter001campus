@@ -18,3 +18,5 @@ class LoginButtonPress extends AuthEvent {
 class ComprobarPaginas extends AuthEvent {}
 
 class EliminarToken extends AuthEvent {}
+
+class NombreUserToken extends AuthEvent {}

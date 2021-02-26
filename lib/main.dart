@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_campus/bloc/auth_bloc.dart';
 import 'package:flutter_campus/repository/auth_repo.dart';
 import 'package:flutter_campus/ui/admin.dart';
+import 'package:flutter_campus/ui/alum.dart';
+import 'package:flutter_campus/ui/profe.dart';
 import 'package:flutter_campus/ui/regi-page.dart';
 import 'package:flutter_campus/ui/splash_page.dart';
 import 'package:flutter_campus/ui/user.dart';
@@ -30,6 +32,8 @@ class MyApp extends StatelessWidget {
           '/splash_page': (context) => SplashPage(),
           '/user': (context) => User(),
           '/admin': (context) => Admin(),
+          '/profe': (context) => Profe(),
+          '/alum': (context) => Alum(),
           '/regipage': (context) => RegiPage(),
         },
       ),

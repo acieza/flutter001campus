@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_campus/bloc/auth_bloc.dart';
 import 'package:flutter_campus/models/curso.dart';
 import 'package:flutter_campus/repository/auth_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cursoslist.dart';
 import 'main_drawer.dart';
@@ -22,7 +23,6 @@ import 'main_drawer.dart';
 
 class User extends StatefulWidget {
   User({Key key}) : super(key: key);
-
   @override
   _UserState createState() => _UserState();
 }
@@ -41,6 +41,9 @@ class _UserState extends State<User> {
 
   @override
   Widget build(BuildContext context) {
+    if (cursosList == null) {
+      cursosList = List<Curso>();
+    }
     return Scaffold(
         appBar: AppBar(
           actions: <Widget>[
@@ -91,5 +94,6 @@ class _UserState extends State<User> {
         this.cursosList = cursosList;
       });
     });
+    return loadList();
   }
 }
