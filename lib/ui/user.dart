@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_campus/bloc/auth_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_campus/bloc/auth_bloc.dart';
 import 'package:flutter_campus/models/curso.dart';
 import 'package:flutter_campus/repository/auth_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,11 +30,11 @@ class User extends StatefulWidget {
 class _UserState extends State<User> {
   final AuthRepository api = AuthRepository();
   List<Curso> cursosList;
-  AuthBloc vueltaBloc;
+  // AuthBloc vueltaBloc;
 
   @override
   void initState() {
-    vueltaBloc = BlocProvider.of<AuthBloc>(context);
+    // vueltaBloc = BlocProvider.of<AuthBloc>(context);
 
     super.initState();
   }
